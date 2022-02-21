@@ -3,36 +3,41 @@
 #include <math.h>
 #include <stdio.h>
 
+static double x2(mlxk window, int osize)
+{
+	return (window.beginy /3 + window.beginx + osize);
+}
+static double y2(mlxk window, int osize)
+{
+	return(0.1 * (window.beginx - window.mapz) + window.beginy + window.mapz - osize);
+}
+
+static double ft_tan(double x0, double y0,mlxk window,int osize)
+{
+	return ((y2(window, osize) - y0)/(x2(window, osize) - x0));
+}
+
 void	repeatitj2(mlxk window, int size,int osize,t_data img,int color)
 {
-	double		x;
-	double		y1;
-	double		y;
+	double	x0;
+	double	y0;
 	double	m;
 
-	y = window.beginy;
-	y1 = 0.1 * (window.beginx - window.mapz) + y - size;
-	x = (y -  window.mapz)/3 + window.beginx + size;
-	m = ((0.1 * (window.beginx - window.mapz) + window.beginy +  window.mapz - osize) - y1)/(((window.beginy + window.mapz - window.mapz)/3 + window.beginx + osize) - x);
-	if(m > 1 || m < -1)
+	y0 = 0.1 * (window.beginx - window.mapz) + window.beginy - size;
+	x0 = (window.beginy -  window.mapz)/3 + window.beginx + size;
+	m = ft_tan(x0, y0, window,osize);
+	while ((int)y0 != (int)y2(window, osize))
 	{
-		if (window.beginy + osize < y + window.mapz + size)
+		my_mlx_pixel_put(&window, x0 , y0, color);
+		if(m >= 1 || m <= -1)
 		{
-			while (window.beginy + osize < y + window.mapz + size)
-			{
-				my_mlx_pixel_put(&window, ((0.1 * (window.beginx - window.mapz) + window.beginy - size) - y1)/m + x , 0.1 * (window.beginx - window.mapz) + window.beginy - size, color);
-				//mlx_pixel_put ( window.mlx, window.mlx_win, ((0.1 * (window.beginx - window.mapz) + window.beginy - size) - y1)/m + x, 0.1 * (window.beginx - window.mapz) + window.beginy - size,16777215);
-				window.beginy++;
-			}
+			y0++;
+			x0 = x0 + 1/m;
 		}
 		else
 		{
-			while (window.beginy + osize > y + window.mapz + size)
-			{
-				my_mlx_pixel_put(&window, ((0.1 * (window.beginx - window.mapz) + window.beginy - size) - y1)/m + x , 0.1 * (window.beginx - window.mapz) + window.beginy - size, color);
-				//mlx_pixel_put ( window.mlx, window.mlx_win, ((0.1 * (window.beginx - window.mapz) + window.beginy - size) - y1)/m + x, 0.1 * (window.beginx - window.mapz) + window.beginy - size,16777215);
-				window.beginy--;
-			}
+			x0++;
+			y0 = y0 + m;
 		}
 	}
 }

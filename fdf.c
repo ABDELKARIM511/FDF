@@ -44,118 +44,6 @@ int	countlines(char *arv)
 	free(d);
 	return (l);
 }
-/*void	repeatit(mlxk window, int color,t_data img)
-{
-	int	x;
-
-	x = window.beginx;
-	while (window.beginx < (x + window.mapz))
-	{
-		my_mlx_pixel_put(&window, (window.beginy - window.mapz)/3 + window.beginx, (0.1 * (window.beginx - window.mapz)) + window.beginy, color);
-		window.beginx++; 
-	}
-}*/
-
-void	repeatit1(mlxk window, int size,t_data img,int color)
-{
-	int	x;
-
-	x = window.beginx;
-
-	while (window.beginx < (x + window.mapz))
-	{
-		my_mlx_pixel_put(&window, (window.beginy - window.mapz)/3 + window.beginx + size, (0.1 * (window.beginx - window.mapz)) + window.beginy - size, color);
-		//mlx_pixel_put ( window.mlx, window.mlx_win,(window.beginy - window.mapz)/3 + window.beginx + size, (0.1 * (window.beginx - window.mapz)) + window.beginy - size,16777215);
-		window.beginx++; 
-	}
-}
-
-void	repeatit0(mlxk window,int size, int osize,t_data img,int color)
-{
-	double		x;
-	double		y;
-	double	m;
-
-	x = window.beginx;
-	y = 0.1 * (x + window.mapz - window.mapz) + window.beginy;
-	m = (y - size - (0.1 * (x - window.mapz) + window.beginy - osize))/(((window.beginy - window.mapz)/3 + x + window.mapz) + size - ((window.beginy - window.mapz)/3 + window.beginx + osize));
-		if (window.beginx + osize <= x + window.mapz + size)
-		{
-			while (window.beginx + osize <= x + window.mapz + size)
-			{
-				my_mlx_pixel_put(&window, (window.beginy - window.mapz)/3 + window.beginx + osize, (m * (((window.beginy - window.mapz)/3 + window.beginx) - ((window.beginy - window.mapz)/3 + x))) + (0.1 * (x - window.mapz) + window.beginy - osize), color);
-				window.beginx++;
-			}
-		}
-		else
-		{
-			while (window.beginx + osize >= x + window.mapz + size)
-			{
-				my_mlx_pixel_put(&window, (window.beginy - window.mapz)/3 + window.beginx + osize , (m * (((window.beginy - window.mapz)/3 + window.beginx) - ((window.beginy - window.mapz)/3 + x))) + (0.1 * (x - window.mapz) + window.beginy - osize), color);
-				//mlx_pixel_put (window.mlx, window.mlx_win,(window.beginy - window.mapz)/3 + window.beginx + osize ,(m * (((window.beginy - window.mapz)/3 + window.beginx) - ((window.beginy - window.mapz)/3 + x))) + (0.1 * (x - window.mapz) + window.beginy - osize), 16777215);
-				window.beginx--;
-			}
-		}
-}
-
-/*void	repeatitj(mlxk window, int color,t_data img)
-{
-	int	x;
-	x = window.beginy;
-	
-	while (window.beginy < (x + window.mapz))
-	{
-		my_mlx_pixel_put(&window, (window.beginy - window.mapz)/3 + window.beginx , 0.1 * (window.beginx - window.mapz) + window.beginy, color);
-		//mlx_pixel_put ( window.mlx, window.mlx_win, (window.beginy - window.mapz)/3 + window.beginx, 0.1 * (window.beginx - window.mapz) + window.beginy,color);
-		window.beginy++;
-	}
-}*/
-
-void	repeatitj1(mlxk window, int size,t_data img,int color)
-{
-	int	x;
-
-	x = window.beginy;
-	
-	while (window.beginy < (x + window.mapz))
-	{
-		my_mlx_pixel_put(&window, (window.beginy - window.mapz)/3 + window.beginx + size , 0.1 * (window.beginx - window.mapz) + window.beginy - size, color);
-		//mlx_pixel_put ( window.mlx, window.mlx_win, (window.beginy - window.mapz)/3 + window.beginx + size, 0.1 * (window.beginx - window.mapz) + window.beginy - size,16777215);
-		window.beginy++;
-	}
-}
-
-
-void	repeatitj0(mlxk window, int size, int osize,t_data img,int color)
-{
-	double	y;
-	double	x;
-	double m;
-
-	y = window.beginy;
-	x = (y - window.mapz + window.mapz)/3 + window.beginx;
-	m = ((0.1 * (window.beginx - window.mapz) + window.beginy + window.mapz) - size - (0.1 * (window.beginx - window.mapz) + window.beginy))/(x + size - ((window.beginy - window.mapz)/3 + window.beginx));
-		if (y + window.mapz - size > window.beginy)
-		{
-			while (window.beginy < y + window.mapz - size)
-			{
-				my_mlx_pixel_put(&window, ((0.1 * (window.beginx - window.mapz) + window.beginy) - (0.1 * (window.beginx - window.mapz) + y))/m + ((y - window.mapz)/3 + window.beginx) , 0.1 * (window.beginx - window.mapz) + window.beginy, color);
-				//mlx_pixel_put (window.mlx, window.mlx_win,((0.1 * (window.beginx - window.mapz) + window.beginy) - (0.1 * (window.beginx - window.mapz) + y))/m + ((y - window.mapz)/3 + window.beginx), 0.1 * (window.beginx - window.mapz) + window.beginy ,16777215);
-				window.beginy++;
-			}
-		}
-		else
-		{
-			while (window.beginy > y + window.mapz - size)
-			{
-				my_mlx_pixel_put(&window, ((0.1 * (window.beginx - window.mapz) + window.beginy) - (0.1 * (window.beginx - window.mapz) + y))/m + ((y - window.mapz)/3 + window.beginx) , 0.1 * (window.beginx - window.mapz) + window.beginy, color);
-				//mlx_pixel_put (window.mlx, window.mlx_win,((0.1 * (window.beginx - window.mapz) + window.beginy) - (0.1 * (window.beginx - window.mapz) + y))/m + ((y - window.mapz)/3 + window.beginx), 0.1 * (window.beginx - window.mapz) + window.beginy ,16777215);
-				window.beginy--;
-			}
-		}
-}
-
-
 
 static void	*ft_free1(char **c)
 {
@@ -273,7 +161,6 @@ void drawmap(mlxk window, int **c,mlxk *windowim)
 	mlx_string_put(window.mlx,window.mlx_win,10,25,16777215,"Q : Zoom In.");
 	mlx_string_put(window.mlx,window.mlx_win,10,45,16777215,"W : Zoom Out.");
 	mlx_string_put(window.mlx,window.mlx_win,900,25,16777215,"The Best FDF");
-	mlx_string_put(window.mlx,window.mlx_win,1200,25,16777215,ft_itoa(window.mapz));
 	windowim->img = mlx_new_image(window.mlx, 1920, 1080);
 	window.addr = mlx_get_data_addr(windowim->img, &window.bits_per_pixel, &window.line_length, &window.endian);
 	while(i < window.l)
@@ -285,37 +172,19 @@ void drawmap(mlxk window, int **c,mlxk *windowim)
 			if(c[i][j] == 0)
 			{
 				if (j + 1 < window.x)
-				{
-					//if (c[i][j + 1] != 0)
-						repeatit0(window,c[i][j + 1] * 2,c[i][j] * 2,img,window.color[i][j]);
-					/*else
-						repeatit1(window,c[i][j],img,window.color[i][j]);*/
-				}
+					repeatit(window,c[i][j] * 2,c[i][j + 1] * 2,img,window.color[i][j]);
 				if (i + 1 < window.l)
 				{
-					//if (c[i + 1][j] != 0)
-						repeatitj0(window,c[i + 1][j] * 2,c[i][j] * 2,img,window.color[i][j]);
-					/*else
-						repeatitj1(window,c[i][j], img,window.color[i][j]);*/
+					repeatitj2(window,c[i][j] * 2,c[i + 1][j] * 2,img,window.color[i][j]);
 				}
 			}
 			else if (c[i][j] != 0)
 			{
 				if (j + 1 < window.x)
-				{
-					if (c[i][j + 1] == c[i][j])
-						repeatit1(window, c[i][j] * 2,img,window.color[i][j]);
-					else if (c[i][j + 1] > c[i][j])
-						repeatit0(window,c[i][j + 1] * 2,c[i][j] * 2,img,window.color[i][j]);
-					else if (c[i][j + 1] < c[i][j])
-						repeatit2(window,c[i][j] * 2,c[i][j + 1] * 2,img,window.color[i][j]);
-				}
+					repeatit(window,c[i][j] * 2,c[i][j + 1] * 2,img,window.color[i][j]);
 				if (i + 1 < window.l)
 				{
-					if (c[i + 1][j] == c[i][j])
-						repeatitj1(window, c[i][j] * 2,img,window.color[i][j]);
-					else
-						repeatitj2(window, c[i][j] * 2,c[i + 1][j] * 2,img,window.color[i][j]);
+					repeatitj2(window, c[i][j] * 2,c[i + 1][j] * 2,img,window.color[i][j]);
 				}
 			}
 			window.beginx+=window.mapz;
@@ -333,44 +202,44 @@ int write1(int key,mlxk *params)
 	{
 		mlx_destroy_image(params->mlx,params->img);
 		mlx_clear_window(params->mlx,params->mlx_win);
-		params->beginy = params->beginy + 20;
+		params->beginy = params->beginy + 50;
 		drawmap(*params,params->c,params);
 	}
 	if(key == 123)
 	{
 		mlx_destroy_image(params->mlx,params->img);
 		mlx_clear_window(params->mlx,params->mlx_win);
-		params->beginx = params->beginx + 20;
+		params->beginx = params->beginx + 50;
 		drawmap(*params,params->c,params);
 	}
 	if(key == 125)
 	{
 		mlx_destroy_image(params->mlx,params->img);
 		mlx_clear_window(params->mlx,params->mlx_win);
-		params->beginy = params->beginy - 20;
+		params->beginy = params->beginy - 50;
 		drawmap(*params,params->c,params);
 	}
 	if(key == 124)
 	{
 		mlx_destroy_image(params->mlx,params->img);
 		mlx_clear_window(params->mlx,params->mlx_win);
-		params->beginx = params->beginx - 20;
+		params->beginx = params->beginx - 50;
 		drawmap(*params,params->c,params);
 	}
 	if(key == 12)
 	{
 		mlx_destroy_image(params->mlx,params->img);
 		mlx_clear_window(params->mlx,params->mlx_win);
-		params->mapz = params->mapz + 20;
+		params->mapz = params->mapz + 10;
 		drawmap(*params,params->c,params);
 	}
 	if (key == 13)
 	{
-		if (params->mapz - 20 > 0)
+		if (params->mapz - 10 > 0)
 		{
 			mlx_destroy_image(params->mlx,params->img);
 			mlx_clear_window(params->mlx,params->mlx_win);
-			params->mapz = params->mapz - 20;
+			params->mapz = params->mapz - 10;
 			drawmap(*params,params->c,params);
 		}
 		else

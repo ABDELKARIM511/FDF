@@ -47,7 +47,7 @@ typedef struct	s_data {
 #include "./getnextline/get_next_line.h"
 #include "./libft/libft.h"
 void	repeatitj2(mlxk window, int size,int osize,t_data img,int color);
-void	repeatit2(mlxk window, int size, int osize,t_data img,int color);
+void	repeatit(mlxk window, int size, int osize,t_data img,int color);
 void	my_mlx_pixel_put(mlxk *data, int x, int y, int color);
 void	repeatitj0(mlxk window, int size, int osize,t_data img,int color);
 
