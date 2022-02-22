@@ -31,14 +31,6 @@ typedef struct mlx
 	int		**color;
 } mlxk;
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
 # include<unistd.h>
 # include<fcntl.h>
 # include<stdio.h>
@@ -46,9 +38,7 @@ typedef struct	s_data {
 #include <mlx.h>
 #include "./getnextline/get_next_line.h"
 #include "./libft/libft.h"
-void	repeatitj2(mlxk window, int size,int osize,t_data img,int color);
-void	repeatit(mlxk window, int size, int osize,t_data img,int color);
+void	repeatitj(mlxk window, int size,int osize,int color);
+void	repeatit(mlxk window, int size, int osize,int color);
 void	my_mlx_pixel_put(mlxk *data, int x, int y, int color);
-void	repeatitj0(mlxk window, int size, int osize,t_data img,int color);
-
 #endif

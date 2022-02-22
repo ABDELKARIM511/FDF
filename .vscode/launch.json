@@ -11,7 +11,7 @@
       "stopAtEntry": true,
       "cwd": "/Users/aer-razk/Desktop/myfdf1",
       "environment": [],
-      "program": "/Users/aer-razk/Desktop/myfdf1/a.out",
+      "program": "/Users/aer-razk/Desktop/myfdf1/build/Debug/outDebug",
       "internalConsoleOptions": "openOnSessionStart",
       "MIMode": "lldb",
       "externalConsole": true

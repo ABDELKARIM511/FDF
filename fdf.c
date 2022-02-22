@@ -106,9 +106,7 @@ int	*mallopy2(char *source,int *x,int	l,mlxk	*window)
 	{
 		s[++j] = ft_atoi(d[i]);
 		if (ft_strchr(d[i], ','))
-		{
 			window -> color[l][j] = hexatod(strchr(d[i], ','));
-		}
 		else
 			window -> color[l][j] = 16777215;
 	}
@@ -152,7 +150,6 @@ void drawmap(mlxk window, int **c,mlxk *windowim)
 	int		i;
 	int		j;
 	int		d;
-	t_data img;
 
 	i = 0;
 	j = 0;
@@ -169,24 +166,10 @@ void drawmap(mlxk window, int **c,mlxk *windowim)
 		window.beginx = d;
 		while (j < window.x)
 		{
-			if(c[i][j] == 0)
-			{
-				if (j + 1 < window.x)
-					repeatit(window,c[i][j] * 2,c[i][j + 1] * 2,img,window.color[i][j]);
-				if (i + 1 < window.l)
-				{
-					repeatitj2(window,c[i][j] * 2,c[i + 1][j] * 2,img,window.color[i][j]);
-				}
-			}
-			else if (c[i][j] != 0)
-			{
-				if (j + 1 < window.x)
-					repeatit(window,c[i][j] * 2,c[i][j + 1] * 2,img,window.color[i][j]);
-				if (i + 1 < window.l)
-				{
-					repeatitj2(window, c[i][j] * 2,c[i + 1][j] * 2,img,window.color[i][j]);
-				}
-			}
+			if (j + 1 < window.x)
+				repeatit(window,c[i][j] * 2,c[i][j + 1] * 2,window.color[i][j]);
+			if (i + 1 < window.l)
+				repeatitj(window,c[i][j] * 2,c[i + 1][j] * 2,window.color[i][j]);
 			window.beginx+=window.mapz;
 			j++;
 		}
