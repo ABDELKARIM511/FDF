@@ -14,14 +14,16 @@ NAME = fdf.a
 
 ARC = ar rcs
 
-FILES = fdf.c
+FILES = fdf.c draw.c draw2.cc
 
 CC = cc
+
+FLAGS = -Wall -Wextra -Werror
 
 OBJS = ${FILES:.c=.o}
 
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror -I /usr/local/include -c $< -o $@ -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
+	$(CC) $(FLAGS) -I /usr/local/include -c $< -o $@ -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 
 all:$(NAME)
 

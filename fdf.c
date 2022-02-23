@@ -21,8 +21,9 @@ void	my_mlx_pixel_put(mlxk *data, int x, int y, int color)
 
 	if ((x > 0 && x < 1920) && (y > 0 && y < 1080))
 	{
-		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-		*(unsigned int*)dst = color;
+		dst = data->addr + (y * data->line_length
+				+ x * (data->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
 	}
 }
 
@@ -33,6 +34,11 @@ int	countlines(char *arv)
 	int		l;
 
 	fd = open(arv, O_RDWR);
+	if (read(fd, NULL, 0) < 0)
+	{
+		printf("No file %s", arv);
+		exit(0);
+	}
 	d = get_next_line(fd);
 	l = 0;
 	while (d)
@@ -45,16 +51,15 @@ int	countlines(char *arv)
 	return (l);
 }
 
-static void	*ft_free1(char **c)
+static	void	*ft_free1(char **c)
 {
 	int	i;
 
 	i = 0;
 	while (c[i])
-	{
-		free(c[i]);
 		i++;
-	}
+	while (--i >= 0)
+		free(c[i]);
 	free(c);
 	return (NULL);
 }
@@ -82,7 +87,7 @@ int	hexatod(char *c)
 	return (decimal);
 }
 
-int	*mallopy2(char *source,int *x,int	l,mlxk	*window)
+int	*mallopy2(char *source, int *x, int l, mlxk *window)
 {
 	int		*s;
 	int		i;
@@ -93,8 +98,8 @@ int	*mallopy2(char *source,int *x,int	l,mlxk	*window)
 	i = -1;
 	j = -1;
 	k = 0;
-	d = ft_split(source,' ');
-	while(d[++i])
+	d = ft_split(source, ' ');
+	while (d[++i])
 	{
 		if (d[i][0] != '\n')
 			k++;
@@ -111,12 +116,12 @@ int	*mallopy2(char *source,int *x,int	l,mlxk	*window)
 			window -> color[l][j] = 16777215;
 	}
 	*x = k;
-	ft_free1(d);
 	free(source);
+	ft_free1(d);
 	return (s);
 }
 
-int	**twodimensions(int *x,char *arv,mlxk *windowim)
+int	**twodimensions(int *x, char *arv, mlxk *windowim)
 {
 	int		**c;
 	int		fd;
@@ -124,19 +129,19 @@ int	**twodimensions(int *x,char *arv,mlxk *windowim)
 	int		i;
 	int		d;
 
-	fd = open(arv,O_RDWR);
+	fd = open(arv, O_RDWR);
 	k = countlines(arv);
 	c = malloc(sizeof(int *) * k);
 	windowim->color = malloc(sizeof(int *) * k);
 	i = 0;
 	d = -1;
-	while(i < k)
+	while (i < k)
 	{
 		(*x) = 0;
-		c[i] = mallopy2(get_next_line(fd),x,i,windowim);
+		c[i] = mallopy2(get_next_line(fd), x, i, windowim);
 		if (d > *x && d != 0)
 		{
-			printf("map error\n");
+			printf("Found wrong line length. Exiting.\n");
 			exit(0);
 		}
 		d = *x;
@@ -145,7 +150,36 @@ int	**twodimensions(int *x,char *arv,mlxk *windowim)
 	return (c);
 }
 
-void drawmap(mlxk window, int **c,mlxk *windowim)
+void	fdfinfo(mlxk window)
+{
+	char	*c;
+
+	c = ft_itoa(window.beginx);
+	mlx_string_put(window.mlx, window.mlx_win, 10, 5,
+		16777215, "ESC : Exit.");
+	mlx_string_put(window.mlx, window.mlx_win, 10, 25,
+		16777215, "Q : Zoom In.");
+	mlx_string_put(window.mlx, window.mlx_win, 10, 45,
+		16777215, "W : Zoom Out.");
+	mlx_string_put(window.mlx, window.mlx_win, 900, 25,
+		16777215, "The Best FDF");
+	mlx_string_put(window.mlx, window.mlx_win, 200, 5,
+		16777215, "Arrows : Move.");
+	mlx_string_put(window.mlx, window.mlx_win, 200, 25, 16777215, "latitude :");
+	mlx_string_put(window.mlx, window.mlx_win, 310, 25, 16777215, c);
+	free(c);
+	c = ft_itoa(window.beginy);
+	mlx_string_put(window.mlx, window.mlx_win, 200, 45,
+		16777215, "longitude :");
+	mlx_string_put(window.mlx, window.mlx_win, 320, 45, 16777215, c);
+	free(c);
+	c = ft_itoa(window.mapz);
+	mlx_string_put(window.mlx, window.mlx_win, 390, 5, 16777215, "Zoom :");
+	mlx_string_put(window.mlx, window.mlx_win, 460, 5, 16777215, c);
+	free(c);
+}
+
+void	drawmap(mlxk window, int **c, mlxk *windowim)
 {
 	int		i;
 	int		j;
@@ -154,13 +188,10 @@ void drawmap(mlxk window, int **c,mlxk *windowim)
 	i = 0;
 	j = 0;
 	d = window.beginx;
-	mlx_string_put(window.mlx,window.mlx_win,10,5,16777215,"ESC : Exit.");
-	mlx_string_put(window.mlx,window.mlx_win,10,25,16777215,"Q : Zoom In.");
-	mlx_string_put(window.mlx,window.mlx_win,10,45,16777215,"W : Zoom Out.");
-	mlx_string_put(window.mlx,window.mlx_win,900,25,16777215,"The Best FDF");
+	fdfinfo(window);
 	windowim->img = mlx_new_image(window.mlx, 1920, 1080);
 	window.addr = mlx_get_data_addr(windowim->img, &window.bits_per_pixel, &window.line_length, &window.endian);
-	while(i < window.l)
+	while (i < window.l)
 	{
 		j = 0;
 		window.beginx = d;
@@ -181,35 +212,35 @@ void drawmap(mlxk window, int **c,mlxk *windowim)
 
 int write1(int key,mlxk *params)
 {
-	if(key == 126)
+	if (key == 126)
 	{
-		mlx_destroy_image(params->mlx,params->img);
-		mlx_clear_window(params->mlx,params->mlx_win);
+		mlx_destroy_image(params->mlx, params->img);
+		mlx_clear_window(params->mlx, params->mlx_win);
 		params->beginy = params->beginy + 50;
-		drawmap(*params,params->c,params);
+		drawmap(*params, params->c,params);
 	}
-	if(key == 123)
+	if (key == 123)
 	{
-		mlx_destroy_image(params->mlx,params->img);
-		mlx_clear_window(params->mlx,params->mlx_win);
+		mlx_destroy_image(params->mlx, params->img);
+		mlx_clear_window(params->mlx, params->mlx_win);
 		params->beginx = params->beginx + 50;
-		drawmap(*params,params->c,params);
+		drawmap(*params, params->c, params);
 	}
-	if(key == 125)
+	if (key == 125)
 	{
-		mlx_destroy_image(params->mlx,params->img);
-		mlx_clear_window(params->mlx,params->mlx_win);
+		mlx_destroy_image(params->mlx, params->img);
+		mlx_clear_window(params->mlx, params->mlx_win);
 		params->beginy = params->beginy - 50;
-		drawmap(*params,params->c,params);
+		drawmap(*params, params->c,params);
 	}
-	if(key == 124)
+	if (key == 124)
 	{
 		mlx_destroy_image(params->mlx,params->img);
 		mlx_clear_window(params->mlx,params->mlx_win);
 		params->beginx = params->beginx - 50;
 		drawmap(*params,params->c,params);
 	}
-	if(key == 12)
+	if (key == 12)
 	{
 		mlx_destroy_image(params->mlx,params->img);
 		mlx_clear_window(params->mlx,params->mlx_win);
@@ -242,16 +273,16 @@ int	main(int arc,char **arv)
 	int	i = 0;
 	int	j = 0;
 
-	(void) arc;
-	window.c = twodimensions(&window.x, arv[1],&window);
+	(void)arc;
+	window.c = twodimensions(&window.x, arv[1], &window);
 	window.l = countlines(arv[1]);
 	window.mapz = 2;
 	window.beginy = 50;
 	window.beginx = 50;
 	window.mlx = mlx_init();
-	window.mlx_win = mlx_new_window(window.mlx, 1920,1080, "FDF");
-	drawmap(window,window.c,&window);
-	mlx_hook(window.mlx_win,2,0,write1,&window);
+	window.mlx_win = mlx_new_window(window.mlx, 1920, 1080, "FDF");
+	drawmap(window, window.c, &window);
+	mlx_hook(window.mlx_win, 2, 0, write1, &window);
 	mlx_loop(window.mlx);
 	exit(0);
 }
