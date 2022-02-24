@@ -10,30 +10,31 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fdf.a
+NAME = fdf
 
-ARC = ar rcs
+FILES = fdf.c draw.c draw2.c libft/ft_atoi.c libft/ft_itoa.c libft/ft_split.c\
+		getnextline/get_next_line.c getnextline/get_next_line_utils.c
 
-FILES = fdf.c draw.c draw2.cc
+INCLUDE = fdf.h
 
-CC = cc
+CC = cc 
 
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 OBJS = ${FILES:.c=.o}
-
-%.o: %.c
-	$(CC) $(FLAGS) -I /usr/local/include -c $< -o $@ -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 
 all:$(NAME)
 
 $(NAME): $(OBJS)
-	$(ARC) $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDE) -o $(NAME) -lmlx -framework OpenGL -framework AppKit
+	@echo "SUUUUUUUUIIIIIII"
 
-clean: ${OBJS}
-	rm -f ${OBJS}
+clean:
+	@rm -f ${OBJS}
+	@echo "SUUUUUUUUIIIIIII"
 
 fclean: clean
-	rm -f ${NAME}
+	@rm -f ${NAME}
+	@echo "SUUUUUUUUIIIIIII"
 
 re: fclean all

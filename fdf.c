@@ -293,13 +293,11 @@ int write1(int key,mlxk *params)
 int	main(int arc,char **arv)
 {
 	mlxk window;
-	int	i = 0;
-	int	j = 0;
 
 	(void)arc;
 	window.l = countlines(arv[1]);
 	window.c = twodimensions(arv[1], &window);
-	window.mapz = 2;
+	window.mapz = 1;
 	window.beginy = 50;
 	window.beginx = 50;
 	window.mlx = mlx_init();
