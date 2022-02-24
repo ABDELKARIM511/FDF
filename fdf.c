@@ -58,8 +58,12 @@ static	void	*ft_free1(char **c)
 	i = 0;
 	while (c[i])
 		i++;
-	while (--i >= 0)
+	i--;
+	while (i >= 0)
+	{
 		free(c[i]);
+		i--;
+	}
 	free(c);
 	return (NULL);
 }
@@ -87,7 +91,23 @@ int	hexatod(char *c)
 	return (decimal);
 }
 
-int	*mallopy2(char *source, int *x, int l, mlxk *window)
+char	*ft_strchr1(const char *s, int c)
+{
+	unsigned char	*d;
+	int				k;
+
+	k = ft_strlen(s) + 1;
+	d = (unsigned char *)s;
+	while (k--)
+	{
+		if ((unsigned char)c == *d)
+			return ((char *) d);
+		d++;
+	}
+	return (NULL);
+}
+
+int	*mallopy2(char *source, int l, mlxk *window)
 {
 	int		*s;
 	int		i;
@@ -95,56 +115,59 @@ int	*mallopy2(char *source, int *x, int l, mlxk *window)
 	int		k;
 	char	**d;
 
-	i = -1;
-	j = -1;
+	i = 0;
+	j = 0;
 	k = 0;
 	d = ft_split(source, ' ');
-	while (d[++i])
+	if (!d)
+		return (NULL);
+	while (d[i])
 	{
 		if (d[i][0] != '\n')
 			k++;
+		i++;
 	}
-	s = malloc(k * sizeof(int));
-	window -> color[l] = malloc(k * sizeof(int));
-	i = -1;
-	while (d[++i])
+	s = ft_calloc(k, sizeof(int));
+	window -> color[l] = ft_calloc(k ,sizeof(int));
+	i = 0;
+	while (i < k)
 	{
-		s[++j] = ft_atoi(d[i]);
-		if (ft_strchr(d[i], ','))
-			window -> color[l][j] = hexatod(strchr(d[i], ','));
+		s[j] = ft_atoi(d[i]);
+		if (ft_strchr1(d[i], ','))
+			 window -> color[l][j] = hexatod(ft_strchr1(d[i], ','));
 		else
 			window -> color[l][j] = 16777215;
+		j++;
+		i++;
 	}
-	*x = k;
+	window -> x = k;
 	free(source);
 	ft_free1(d);
 	return (s);
 }
 
-int	**twodimensions(int *x, char *arv, mlxk *windowim)
+int	**twodimensions(char *arv, mlxk *windowim)
 {
 	int		**c;
 	int		fd;
-	int		k;
 	int		i;
 	int		d;
 
 	fd = open(arv, O_RDWR);
-	k = countlines(arv);
-	c = malloc(sizeof(int *) * k);
-	windowim->color = malloc(sizeof(int *) * k);
+	c = ft_calloc(sizeof(int *), windowim -> l);
+	windowim->color = ft_calloc(sizeof(int *), windowim -> l);
 	i = 0;
-	d = -1;
-	while (i < k)
+	d = 0;
+	while (i < windowim -> l)
 	{
-		(*x) = 0;
-		c[i] = mallopy2(get_next_line(fd), x, i, windowim);
-		if (d > *x && d != 0)
+		windowim -> x = 0;
+		c[i] = mallopy2(get_next_line(fd), i, windowim);
+		if (d > windowim -> x && d != 0)
 		{
 			printf("Found wrong line length. Exiting.\n");
 			exit(0);
 		}
-		d = *x;
+		d = windowim -> x;
 		i++;
 	}
 	return (c);
@@ -165,12 +188,12 @@ void	fdfinfo(mlxk window)
 		16777215, "The Best FDF");
 	mlx_string_put(window.mlx, window.mlx_win, 200, 5,
 		16777215, "Arrows : Move.");
-	mlx_string_put(window.mlx, window.mlx_win, 200, 25, 16777215, "latitude :");
+	mlx_string_put(window.mlx, window.mlx_win, 200, 25, 16777215, "Latitude :");
 	mlx_string_put(window.mlx, window.mlx_win, 310, 25, 16777215, c);
 	free(c);
 	c = ft_itoa(window.beginy);
 	mlx_string_put(window.mlx, window.mlx_win, 200, 45,
-		16777215, "longitude :");
+		16777215, "Longitude :");
 	mlx_string_put(window.mlx, window.mlx_win, 320, 45, 16777215, c);
 	free(c);
 	c = ft_itoa(window.mapz);
@@ -274,8 +297,8 @@ int	main(int arc,char **arv)
 	int	j = 0;
 
 	(void)arc;
-	window.c = twodimensions(&window.x, arv[1], &window);
 	window.l = countlines(arv[1]);
+	window.c = twodimensions(arv[1], &window);
 	window.mapz = 2;
 	window.beginy = 50;
 	window.beginx = 50;

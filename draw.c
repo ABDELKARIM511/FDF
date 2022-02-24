@@ -40,7 +40,7 @@ void	repeatitj(mlxk window, int size, int osize, int color)
 	y0 = 0.1 * (window.beginx - window.mapz) + window.beginy - size;
 	x0 = (window.beginy - window.mapz) / 3 + window.beginx + size;
 	m = ft_tan(x0, y0, window, osize);
-	if (m >= 1 || m <= -1)
+	if (m > 1 || m < -1)
 	{
 		while ((int)y0 != (int)y2(window, osize))
 		{
