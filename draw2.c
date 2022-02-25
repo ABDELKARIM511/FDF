@@ -15,23 +15,23 @@
 #include <math.h>
 #include <stdio.h>
 
-double	x2(mlxk window, int osize)
+double	x2(t_mlxk window, int osize)
 {
 	return ((window.beginy - window.mapz) / 3 + window.beginx
 		+ window.mapz + osize);
 }
 
-double	y2(mlxk window, int osize)
+double	y2(t_mlxk window, int osize)
 {
 	return (0.1 * window.beginx + window.beginy - osize);
 }
 
-double	ft_tan(double x0, double y0, mlxk window, int osize)
+double	ft_tan(double x0, double y0, t_mlxk window, int osize)
 {
 	return ((y2(window, osize) - y0) / (x2(window, osize) - x0));
 }
 
-void	repeatit(mlxk window, int size, int osize, int color)
+void	repeatit(t_mlxk window, int size, int osize, int color)
 {
 	double	x0;
 	double	y0;

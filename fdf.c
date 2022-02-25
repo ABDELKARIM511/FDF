@@ -12,7 +12,7 @@
 #include "mlx.h"
 #include "fdf.h"
 
-void	sendingdata(mlxk window, int i, int j, int **c)
+void	sendingdata(t_mlxk window, int i, int j, int **c)
 {
 	if (j + 1 < window.x)
 		repeatit(window, c[i][j] * 2, c[i][j + 1] * 2,
@@ -22,7 +22,7 @@ void	sendingdata(mlxk window, int i, int j, int **c)
 			window.color[i][j]);
 }
 
-void	drawmap(mlxk window, int **c, mlxk *windowim)
+void	drawmap(t_mlxk window, int **c, t_mlxk *windowim)
 {
 	int		i;
 	int		j;
@@ -48,20 +48,65 @@ void	drawmap(mlxk window, int **c, mlxk *windowim)
 	mlx_put_image_to_window(window.mlx, window.mlx_win, windowim->img, 0, 70);
 }
 
+void	changetaille(t_mlxk *widnow, int add)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < widnow -> l)
+	{
+		j = 0;
+		while (j < widnow -> x)
+		{
+			if (widnow -> c[i][j] != 0)
+				widnow -> c[i][j] += add;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	secondfdf(char **arv, t_mlxk window, int arc)
+{
+	if (arc == 4)
+	{
+		window.l = countlines(arv[1]);
+		window.c = twodimensions(arv[1], &window);
+		window.mapz = ft_atoi(arv[2]);
+		window.beginy = 50;
+		window.beginx = 50;
+		window.mlx = mlx_init();
+		window.mlx_win = mlx_new_window(window.mlx, 1920, 1080, "FDF");
+		changetaille(&window, ft_atoi(arv[3]));
+		drawmap(window, window.c, &window);
+		mlx_hook(window.mlx_win, 2, 0, controlmap, &window);
+		mlx_loop(window.mlx);
+		exit(0);
+	}
+}
+
 int	main(int arc, char **arv)
 {
-	mlxk	window;
+	t_mlxk	window;
 
-	(void)arc;
-	window.l = countlines(arv[1]);
-	window.c = twodimensions(arv[1], &window);
-	window.mapz = 1;
-	window.beginy = 50;
-	window.beginx = 50;
 	window.mlx = mlx_init();
 	window.mlx_win = mlx_new_window(window.mlx, 1920, 1080, "FDF");
-	drawmap(window, window.c, &window);
-	mlx_hook(window.mlx_win, 2, 0, controlmap, &window);
-	mlx_loop(window.mlx);
+	if (arc == 2)
+	{
+		window.l = countlines(arv[1]);
+		window.c = twodimensions(arv[1], &window);
+		window.mapz = 1;
+		window.beginy = 50;
+		window.beginx = 50;
+		changetaille(&window, 0);
+		drawmap(window, window.c, &window);
+		mlx_hook(window.mlx_win, 2, 0, controlmap, &window);
+		mlx_loop(window.mlx);
+		exit(0);
+	}
+	else
+		secondfdf(arv, window, arc);
 	exit(0);
 }

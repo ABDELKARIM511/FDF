@@ -13,7 +13,7 @@
 #include "mlx.h"
 #include "fdf.h"
 
-void	moveright(mlxk *params)
+void	moveright(t_mlxk *params)
 {
 	mlx_destroy_image(params->mlx, params->img);
 	mlx_clear_window(params->mlx, params->mlx_win);
@@ -21,7 +21,7 @@ void	moveright(mlxk *params)
 	drawmap(*params, params->c, params);
 }
 
-void	movedown(mlxk *params)
+void	movedown(t_mlxk *params)
 {
 	mlx_destroy_image(params->mlx, params->img);
 	mlx_clear_window(params->mlx, params->mlx_win);
@@ -29,7 +29,7 @@ void	movedown(mlxk *params)
 	drawmap(*params, params->c, params);
 }
 
-void	moveleft(mlxk *params)
+void	moveleft(t_mlxk *params)
 {
 	mlx_destroy_image(params->mlx, params->img);
 	mlx_clear_window(params->mlx, params->mlx_win);
@@ -37,7 +37,7 @@ void	moveleft(mlxk *params)
 	drawmap(*params, params->c, params);
 }
 
-void	moveup(mlxk *params)
+void	moveup(t_mlxk *params)
 {
 	mlx_destroy_image(params->mlx, params->img);
 	mlx_clear_window(params->mlx, params->mlx_win);
@@ -45,8 +45,12 @@ void	moveup(mlxk *params)
 	drawmap(*params, params->c, params);
 }
 
-int	controlmap(int key, mlxk *params)
+int	controlmap(int key, t_mlxk *params)
 {
+	if (key == 78)
+		taillemoin(params);
+	if (key == 69)
+		tailleplus(params);
 	if (key == 126)
 		moveright(params);
 	if (key == 123)

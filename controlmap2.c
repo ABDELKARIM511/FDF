@@ -13,7 +13,7 @@
 #include "mlx.h"
 #include "fdf.h"
 
-void	zoomin(mlxk *params)
+void	zoomin(t_mlxk *params)
 {
 	mlx_destroy_image(params->mlx, params->img);
 	mlx_clear_window(params->mlx, params->mlx_win);
@@ -21,7 +21,7 @@ void	zoomin(mlxk *params)
 	drawmap(*params, params->c, params);
 }
 
-void	zoomout(mlxk *params)
+void	zoomout(t_mlxk *params)
 {
 	if (params->mapz - 10 > 0)
 	{
@@ -33,4 +33,20 @@ void	zoomout(mlxk *params)
 	else
 		mlx_string_put(params->mlx, params->mlx_win,
 			840, 50, 16711680, "You can't zoom out anymore.");
+}
+
+void	tailleplus(t_mlxk *params)
+{
+	mlx_destroy_image(params->mlx, params->img);
+	mlx_clear_window(params->mlx, params->mlx_win);
+	changetaille(params, 5);
+	drawmap(*params, params->c, params);
+}
+
+void	taillemoin(t_mlxk *params)
+{
+	mlx_destroy_image(params->mlx, params->img);
+	mlx_clear_window(params->mlx, params->mlx_win);
+	changetaille(params, -5);
+	drawmap(*params, params->c, params);
 }

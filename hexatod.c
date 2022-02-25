@@ -36,7 +36,7 @@ int	hexatod(char *c)
 	return (decimal);
 }
 
-void	fdfinfo(mlxk window)
+void	fdfinfo(t_mlxk window)
 {
 	char	*c;
 

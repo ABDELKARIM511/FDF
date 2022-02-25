@@ -29,7 +29,7 @@ int	counttable(char **d)
 	return (k);
 }
 
-int	*mallopy2(char *source, int l, mlxk *window)
+int	*mallopy2(char *source, int l, t_mlxk *window)
 {
 	int		*s;
 	int		i;
@@ -66,7 +66,7 @@ int	countlines(char *arv)
 	fd = open(arv, O_RDWR);
 	if (read(fd, NULL, 0) < 0)
 	{
-		printf("No file %s", arv);
+		ft_putstr("Map dosen't exist.");
 		exit(0);
 	}
 	d = get_next_line(fd);
@@ -81,7 +81,7 @@ int	countlines(char *arv)
 	return (l);
 }
 
-int	**twodimensions(char *arv, mlxk *windowim)
+int	**twodimensions(char *arv, t_mlxk *windowim)
 {
 	int	**c;
 	int	fd;
@@ -99,7 +99,7 @@ int	**twodimensions(char *arv, mlxk *windowim)
 		c[i] = mallopy2(get_next_line(fd), i, windowim);
 		if (d > windowim -> x && d != 0)
 		{
-			printf("Found wrong line length. Exiting.\n");
+			ft_putstr("Found wrong line length. Exiting.\n");
 			exit(0);
 		}
 		d = windowim -> x;
