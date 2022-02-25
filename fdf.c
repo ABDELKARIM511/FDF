@@ -61,7 +61,12 @@ void	changetaille(t_mlxk *widnow, int add)
 		while (j < widnow -> x)
 		{
 			if (widnow -> c[i][j] != 0)
-				widnow -> c[i][j] += add;
+			{
+				if (widnow -> c[i][j] + add == 0)
+					widnow -> c[i][j] += add + 1;
+				else
+					widnow -> c[i][j] += add;
+			}
 			j++;
 		}
 		i++;
