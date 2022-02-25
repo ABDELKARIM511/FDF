@@ -16,6 +16,7 @@
   "C_Cpp_Runner.enableWarnings": true,
   "C_Cpp_Runner.warningsAsError": false,
   "files.associations": {
-    "sstream": "c"
+    "sstream": "c",
+    "fdf.h": "c"
   }
 }

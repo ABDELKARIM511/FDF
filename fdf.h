@@ -35,10 +35,23 @@ typedef struct mlx
 # include<fcntl.h>
 # include<stdio.h>
 # include<stdlib.h>
+#include <math.h>
 #include <mlx.h>
 #include "./getnextline/get_next_line.h"
 #include "./libft/libft.h"
 void	repeatitj(mlxk window, int size,int osize,int color);
 void	repeatit(mlxk window, int size, int osize,int color);
 void	my_mlx_pixel_put(mlxk *data, int x, int y, int color);
+void	my_mlx_pixel_put(mlxk *data, int x, int y, int color);
+char	*ft_strchr1(const char *s, int c);
+int	hexatod(char *c);
+void	fdfinfo(mlxk window);
+void	*ft_free1(char **c);
+int	*mallopy2(char *source, int l, mlxk *window);
+int	countlines(char *arv);
+int	**twodimensions(char *arv, mlxk *windowim);
+int	controlmap(int key, mlxk *params);
+void zoomout(mlxk *params);
+void zoomin(mlxk *params);
+void	drawmap(mlxk window, int **c, mlxk *windowim);
 #endif
