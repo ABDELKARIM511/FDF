@@ -50,3 +50,13 @@ void	taillemoin(t_mlxk *params)
 	changetaille(params, -5);
 	drawmap(*params, params->c, params);
 }
+
+int	exitit(int key, t_mlxk *params)
+{
+	if (key == 53)
+	{
+		mlx_destroy_window(params->mlx, params->mlx_win);
+		exit(0);
+	}
+	return (0);
+}

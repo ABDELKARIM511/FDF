@@ -21,3 +21,9 @@ void	ft_putstr(char *c)
 	while (c[++i])
 		write(1, &c[i], 1);
 }
+
+int	ft_exit(void *arg)
+{
+	(void)arg;
+	exit(0);
+}

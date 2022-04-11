@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aer-razk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/06 15:51:43 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/01/06 15:51:45 by aer-razk         ###   ########.fr       */
+/*   Created: 2022/02/27 16:37:36 by aer-razk          #+#    #+#             */
+/*   Updated: 2022/02/27 16:37:37 by aer-razk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
 # include<unistd.h>
 # include<fcntl.h>
 # include<stdio.h>
@@ -60,5 +60,4 @@ void	changetaille(t_mlxk *widnow, int add);
 void	tailleplus(t_mlxk *params);
 void	taillemoin(t_mlxk *params);
 int		ft_exit(void *arg);
-int		exitit(int key, t_mlxk *params);
 #endif

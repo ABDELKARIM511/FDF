@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "mlx.h"
-#include "fdf.h"
+#include "fdf_bonus.h"
 
 void	sendingdata(t_mlxk window, int i, int j, int **c)
 {
@@ -86,7 +86,7 @@ void	secondfdf(char **arv, t_mlxk window, int arc)
 		window.mlx_win = mlx_new_window(window.mlx, 1920, 1080, "FDF");
 		changetaille(&window, ft_atoi(arv[3]));
 		drawmap(window, window.c, &window);
-		mlx_hook(window.mlx_win, 2, 0, exitit, &window);
+		mlx_hook(window.mlx_win, 2, 0, controlmap, &window);
 		mlx_hook(window.mlx_win, 17, 0, ft_exit, &window);
 		mlx_loop(window.mlx);
 		exit(0);
@@ -103,12 +103,12 @@ int	main(int arc, char **arv)
 	{
 		window.l = countlines(arv[1]);
 		window.c = twodimensions(arv[1], &window);
-		window.mapz = 50;
+		window.mapz = 1;
 		window.beginy = 50;
 		window.beginx = 50;
 		changetaille(&window, 0);
 		drawmap(window, window.c, &window);
-		mlx_hook(window.mlx_win, 2, 0, exitit, &window);
+		mlx_hook(window.mlx_win, 2, 0, controlmap, &window);
 		mlx_hook(window.mlx_win, 17, 0, ft_exit, &window);
 		mlx_loop(window.mlx);
 		exit(0);
