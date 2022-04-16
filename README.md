@@ -14,5 +14,7 @@ and of course to draw a line we need two points, so now we're looking for our se
 </br>
 
 in the picture above we see that we've formed a triangle using the line that we want to draw, which is the distance between p1 and p0, Dx which </br>
+
 is the difference between x1 and x0 "x1 - x2", and finally Dy which is the difference between y1 and y0 "y1 - y0".</br>
+
 and in that moment it pops up to my mind that i can get the "TAN" of the angle showed above using Dx and Dy as i showed in the picture.
