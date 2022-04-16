@@ -27,3 +27,14 @@ void	my_mlx_pixel_put(t_mlxk *data, int x, int y, int color)
 		*(unsigned int *)dst = color;
 	}
 }
+
+int	test_arg(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+		if (ft_isalpha(s[i]) == 1)
+			return (1);
+	return (0);
+}

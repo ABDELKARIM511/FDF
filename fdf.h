@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aer-razk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/06 15:51:43 by aer-razk          #+#    #+#             */
-/*   Updated: 2022/01/06 15:51:45 by aer-razk         ###   ########.fr       */
+/*   Created: 2022/02/27 16:37:36 by aer-razk          #+#    #+#             */
+/*   Updated: 2022/02/27 16:37:37 by aer-razk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	my_mlx_pixel_put(t_mlxk *data, int x, int y, int color);
 char	*ft_strchr1(const char *s, int c);
 int		hexatod(char *c);
 void	fdfinfo(t_mlxk window);
+int		test_arg(char *s);
 void	*ft_free1(char **c);
 int		*mallopy2(char *source, int l, t_mlxk *window);
 int		countlines(char *arv);
@@ -60,5 +61,4 @@ void	changetaille(t_mlxk *widnow, int add);
 void	tailleplus(t_mlxk *params);
 void	taillemoin(t_mlxk *params);
 int		ft_exit(void *arg);
-int		exitit(int key, t_mlxk *params);
 #endif

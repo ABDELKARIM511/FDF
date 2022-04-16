@@ -77,8 +77,15 @@ void	secondfdf(char **arv, t_mlxk window, int arc)
 {
 	if (arc == 4)
 	{
+		window.mlx = mlx_init();
+		window.mlx_win = mlx_new_window(window.mlx, 1920, 1080, "FDF");
 		window.l = countlines(arv[1]);
 		window.c = twodimensions(arv[1], &window);
+		if (test_arg(arv[2]) || test_arg(arv[3]))
+		{
+			write(2, "Parameter error", 15);
+			exit(0);
+		}
 		window.mapz = ft_atoi(arv[2]);
 		window.beginy = 50;
 		window.beginx = 50;
@@ -86,11 +93,13 @@ void	secondfdf(char **arv, t_mlxk window, int arc)
 		window.mlx_win = mlx_new_window(window.mlx, 1920, 1080, "FDF");
 		changetaille(&window, ft_atoi(arv[3]));
 		drawmap(window, window.c, &window);
-		mlx_hook(window.mlx_win, 2, 0, exitit, &window);
+		mlx_hook(window.mlx_win, 2, 0, controlmap, &window);
 		mlx_hook(window.mlx_win, 17, 0, ft_exit, &window);
 		mlx_loop(window.mlx);
 		exit(0);
 	}
+	else
+		write(2, "Parameter error", 15);
 }
 
 int	main(int arc, char **arv)
@@ -98,17 +107,18 @@ int	main(int arc, char **arv)
 	t_mlxk	window;
 
 	window.mlx = mlx_init();
-	window.mlx_win = mlx_new_window(window.mlx, 1920, 1080, "FDF");
 	if (arc == 2)
 	{
+		window.mlx = mlx_init();
+		window.mlx_win = mlx_new_window(window.mlx, 1920, 1080, "FDF");
 		window.l = countlines(arv[1]);
 		window.c = twodimensions(arv[1], &window);
-		window.mapz = 50;
+		window.mapz = 1;
 		window.beginy = 50;
 		window.beginx = 50;
 		changetaille(&window, 0);
 		drawmap(window, window.c, &window);
-		mlx_hook(window.mlx_win, 2, 0, exitit, &window);
+		mlx_hook(window.mlx_win, 2, 0, controlmap, &window);
 		mlx_hook(window.mlx_win, 17, 0, ft_exit, &window);
 		mlx_loop(window.mlx);
 		exit(0);
