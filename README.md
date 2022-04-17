@@ -59,4 +59,15 @@ if p1's z = 10 and p0's z = 0 it will be like :
   <li>p1(100, 55) => x1 = 100 + 10 = 110 and y1 = 55 - 10 = 45</li>
 </ul>
 so the actual coordinations of p1 will be: p1(110, 45)
-
+<h3>SOME PLEASANT TO THE EYE RESULTS :</h3></br>
+</br>
+<img width="1809" alt="Screen Shot 2022-04-17 at 12 20 05 AM" src="https://user-images.githubusercontent.com/65429355/163695331-9afa79a9-c1c2-46b7-9c96-36e4e41f6196.png">
+</br>
+</br>
+<img width="1904" alt="Screen Shot 2022-04-17 at 12 28 27 AM" src="https://user-images.githubusercontent.com/65429355/163695335-2c08a038-1fa3-468f-93f1-161a5f9a2fe6.png">
+</br>
+</br>
+<img width="1866" alt="Screen Shot 2022-04-17 at 12 28 59 AM" src="https://user-images.githubusercontent.com/65429355/163695342-7a0974c3-932b-4e3a-ae6a-ab292d9a30f7.png">
+</br>
+</br>
+<img width="1844" alt="Screen Shot 2022-04-17 at 12 31 34 AM" src="https://user-images.githubusercontent.com/65429355/163695347-16ad4406-0915-4350-be74-271702d6b4e5.png">
